@@ -1,0 +1,6 @@
+et-xmlfile==1.0.1
+ezdxf==0.15.2
+jdcal==1.4.1
+openpyxl==3.0.6
+pyparsing==2.4.7
+utm==0.7.0
