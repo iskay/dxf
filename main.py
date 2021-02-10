@@ -13,9 +13,9 @@ def find_dist(pole, label):
     delta_y = pole['y'] - label['y']
     return sqrt((delta_x**2 + delta_y**2))
 
-
+dxf_filename = f"./dxf/{FILENAME}"
 try:
-    doc = ezdxf.readfile(FILENAME)
+    doc = ezdxf.readfile(dxf_filename)
 except IOError:
     print(f'Not a DXF file or a generic I/O error.')
     sys.exit(1)
@@ -78,7 +78,7 @@ for p in poles:
     poles_labels.append(new_pair)
 
 # write the csv values
-csv_filename = FILENAME.split(".")[0] + ".csv"
+csv_filename = "./csv/" + FILENAME.split(".")[0] + ".csv"
 with open(csv_filename, mode='w', newline='', encoding='utf-8') as out_file:
     writer = csv.writer(out_file, delimiter=",")
     writer.writerow(['Lead', 'Location', 'Species', 'Length', 'Class', 'Latitude', 'Longitude'])
