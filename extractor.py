@@ -18,13 +18,15 @@ class Extractor:
     def open_dxf(self, filename):
         try:
             self.doc = ezdxf.readfile(filename)
-            self.current_file = filename
+            return True
         except IOError:
             print(f'Not a DXF file or a generic I/O error.')
-            sys.exit(1)
+            #sys.exit(1)
+            return False
         except ezdxf.DXFStructureError:
             print(f'Invalid or corrupted DXF file.')
-            sys.exit(2)
+            #sys.exit(2)
+            return False
 
     def extract(self):
         msp = self.doc.modelspace()
@@ -80,13 +82,13 @@ class Extractor:
             # poles, their lat/lon and label
             self.poles_labels.append(new_pair)
 
-    def write_csv(self):
-        csv_filename = "./csv/" + FILENAME.split(".")[0] + ".csv"
-        with open(csv_filename, mode='w', newline='', encoding='utf-8') as out_file:
+    def write_csv(self, filename):
+        #csv_filename = "./csv/" + FILENAME.split(".")[0] + ".csv"
+        with open(filename, mode='w', newline='', encoding='utf-8') as out_file:
             writer = csv.writer(out_file, delimiter=",")
             writer.writerow(['Lead', 'Location', 'Species', 'Length', 'Class', 'Latitude', 'Longitude'])
             for pl in self.poles_labels:
-                print(pl)
+                #print(pl)
                 lead = ""
                 # check if there is a label associated with the pole
                 if pl['label'] == 'None':
